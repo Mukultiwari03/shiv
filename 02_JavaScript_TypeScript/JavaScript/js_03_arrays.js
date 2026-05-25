@@ -116,11 +116,11 @@ console.log("=== Section 1 done ===\n");
 //  INTERVIEW TIP: Implement map/filter/reduce from scratch (Exercise 2.5).
 
 const products = [
-  { id: 1, name: "Laptop",   price: 1200, category: "electronics", inStock: true  },
-  { id: 2, name: "Book",     price: 20,   category: "education",   inStock: true  },
+  { id: 1, name: "Laptop", price: 1200, category: "electronics", inStock: true },
+  { id: 2, name: "Book", price: 20, category: "education", inStock: true },
   { id: 3, name: "Headphones", price: 150, category: "electronics", inStock: false },
-  { id: 4, name: "Notebook", price: 5,    category: "education",   inStock: true  },
-  { id: 5, name: "Monitor",  price: 800,  category: "electronics", inStock: true  },
+  { id: 4, name: "Notebook", price: 5, category: "education", inStock: true },
+  { id: 5, name: "Monitor", price: 800, category: "electronics", inStock: true },
 ];
 
 
@@ -132,14 +132,14 @@ let productNames = products.map((product) => product.name);
 let idName = products.map((product) => {
   id = product.id;
   name = product.name;
-  return {id, name};
+  return { id, name };
 });
 // console.log(idName);
 // c) Add a `discountedPrice` field to each product (10% off).
 let discountedProducts = products.map((product) => {
-  discount = product.price - (product.price/10);
+  discount = product.price - (product.price / 10);
   // console.log(`discount - ${discount}`);
-  return {...product, discountedPrice: discount};
+  return { ...product, discountedPrice: discount };
 })
 console.log(discountedProducts);
 // YOUR CODE HERE
@@ -184,7 +184,7 @@ let educationCount = products.reduce((acc, curr) => {
   }
   return acc;
 }, 0);
-let productsPerCategories = {"electronics": electronicCount, "education": educationCount};
+let productsPerCategories = { "electronics": electronicCount, "education": educationCount };
 
 // GEMINI's SOLUTION 
 
@@ -199,7 +199,7 @@ let productsPerCategoryGemini = products.reduce((acc, curr) => {
 // console.log(`count per category by gemini- ${JSON.stringify(productsPerCategoriesGemini)}`);
 //    { electronics: 3, education: 2 }
 // c) Find the most expensive product using reduce (return the full product object).
-let sampleProduct = { id: 0, name: "sample",   price: 0, category: "someCategory", inStock: true };
+let sampleProduct = { id: 0, name: "sample", price: 0, category: "someCategory", inStock: true };
 let mostExpensiveItem = products.reduce((acc, curr) => {
   if (curr.price >= acc.price) {
     acc = curr;
@@ -215,11 +215,11 @@ let mostExpensiveItem = products.reduce((acc, curr) => {
 // Expected: ["Laptop", "Monitor"]
 
 const result = products
-.filter((product) => product.category == "electronics" && product.inStock === true)
-.map((product) => product.name)
-.sort();
-  // YOUR CODE HERE
-  ;
+  .filter((product) => product.category == "electronics" && product.inStock === true)
+  .map((product) => product.name)
+  .sort();
+// YOUR CODE HERE
+;
 
 assert(result, ["Laptop", "Monitor"], "in-stock electronics names sorted");
 
@@ -230,14 +230,14 @@ assert(result, ["Laptop", "Monitor"], "in-stock electronics names sorted");
 function myReduce(arr, fn, initialValue) {
   // YOUR CODE HERE
   let acc = initialValue;
-  for (let i=0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     acc = fn(acc, arr[i]);
   }
   return acc;
 }
 
 assert(myReduce([1, 2, 3, 4], (acc, x) => acc + x, 0), 10, "myReduce sum");
-assert(myReduce(["a","b","c"], (acc, x) => acc + x, ""), "abc", "myReduce concat");
+assert(myReduce(["a", "b", "c"], (acc, x) => acc + x, ""), "abc", "myReduce concat");
 
 console.log("=== Section 2 done ===\n");
 
@@ -263,15 +263,15 @@ console.log("=== Section 2 done ===\n");
 
 // EXERCISE 3.1 — Using find and findIndex.
 const users = [
-  { id: 1, name: "Alice",   role: "admin"  },
-  { id: 2, name: "Bob",     role: "user"   },
-  { id: 3, name: "Charlie", role: "user"   },
-  { id: 4, name: "Diana",   role: "admin"  },
+  { id: 1, name: "Alice", role: "admin" },
+  { id: 2, name: "Bob", role: "user" },
+  { id: 3, name: "Charlie", role: "user" },
+  { id: 4, name: "Diana", role: "admin" },
 ];
 
 // YOUR CODE HERE:
 // a) Find the first admin user (return the whole object).
-let firstAdminUser = users.find((user) => {user.role === "admin"});
+let firstAdminUser = users.find((user) => { user.role === "admin" });
 console.log(firstAdminUser);
 // b) Find the index of the user with id 3.
 // c) Find a user with name "Eve" — what is returned?
@@ -338,27 +338,46 @@ const scrambled = [10, 3, 100, 1, 25, 7];
 // EXERCISE 4.2 — Sort objects.
 const employees = [
   { name: "Charlie", salary: 70000, yearsExp: 5 },
-  { name: "Alice",   salary: 95000, yearsExp: 8 },
-  { name: "Bob",     salary: 70000, yearsExp: 3 },
-  { name: "Diana",   salary: 85000, yearsExp: 6 },
+  { name: "Alice", salary: 95000, yearsExp: 8 },
+  { name: "Bob", salary: 70000, yearsExp: 3 },
+  { name: "Diana", salary: 85000, yearsExp: 6 },
 ];
 
 // YOUR CODE HERE:
 // a) Sort by salary descending.
+employees.sort((a, b) => b.salary - a.salary)
+console.log("hello", employees)
 // b) Sort by salary ascending, and for ties sort by name alphabetically.
+employees.sort((a, b) => {
+  return a.salary - b.salary ? a.salary - b.salary : a.name.localeCompare(b.name)
+})
+console.log("sorting via ascendinggggggg", employees)
 // c) Sort by years of experience, most experienced first.
-
+employees.sort((a, b) => b.yearsExp - a.yearsExp)
+console.log(employees)
 
 // EXERCISE 4.3 — Sort by multiple criteria (generic).
 // Write `sortBy(arr, ...fields)` where each field is a string (object key).
 // Sort by the first field, then by the second as a tiebreaker, etc.
 
-function sortBy(arr, ...fields) {
-  // YOUR CODE HERE
-}
+// function sortBy(arr,idx, ...fields) {
+//   // YOUR CODE HERE
+//   console.log("fields",arr[0].fields[idx])
+//   if(typeof arr[0].fields[idx]==="number"){
+//     // so wwe can do it normally 
+//     arr.sort((a,b)=>{
+//       return a.fields[idx] - b.fields[idx] ? a.fields[idx] - b.fields[idx] : sortBy(arr,idx+1,fields)
+//     })
+//   } else{
+//     arr.sort((a,b)=>{
+//       return a.fields[idx].localeCompare(b.fields[idx]) ? a.name.localeCompare(b.name): sortBy(arr,idx+1,fields)
+//     })
+//   }
 
-const newSorted = sortBy(employees, "salary", "name");
-console.log(newSorted.map(e => `${e.name}:${e.salary}`));
+// }
+
+// const newSorted = sortBy(employees,0, "salary", "name");
+// console.log(newSorted.map(e => `${e.name}:${e.salary}`));
 // ["Bob:70000", "Charlie:70000", "Diana:85000", "Alice:95000"]
 
 console.log("=== Section 4 done ===\n");
@@ -380,34 +399,70 @@ console.log("=== Section 4 done ===\n");
 // EXERCISE 5.1 — Flatten nested data.
 const departments = [
   { name: "Engineering", members: ["Alice", "Bob", "Charlie"] },
-  { name: "Design",      members: ["Diana", "Eve"] },
-  { name: "Product",     members: ["Frank"] },
+  { name: "Design", members: ["Diana", "Eve"] },
+  { name: "Product", members: ["Frank"] },
 ];
 
 // YOUR CODE HERE:
 // a) Get a flat list of ALL member names: ["Alice", "Bob", "Charlie", "Diana", "Eve", "Frank"]
 //    Use flatMap.
+console.log(departments.flatMap((obj) => obj.members))
 // b) Get a flat list of "Name (Dept)" strings: ["Alice (Engineering)", ...]
+console.log(departments.flatMap((obj) => obj.members.map((val) => `${val} (${obj.name})`)))
 //    Use flatMap.
 
 
 // EXERCISE 5.2 — Group by and then flatten (common in data processing).
 const orders = [
   { customer: "Alice", items: ["book", "pen"] },
-  { customer: "Bob",   items: ["laptop"] },
+  { customer: "Bob", items: ["laptop"] },
   { customer: "Alice", items: ["notebook", "pencil", "ruler"] },
 ];
 
 // YOUR CODE HERE:
 // Get a flat array of ALL items across ALL orders:
 // ["book", "pen", "laptop", "notebook", "pencil", "ruler"]
-
+console.log(orders.map((obj) => obj.items).flat())
+console.log(orders.flatMap((obj) => obj.items), "second")
 
 // EXERCISE 5.3 — Implement flatten from scratch.
 // Write `deepFlatten(arr)` that flattens to any depth (without using .flat).
 
 function deepFlatten(arr) {
   // YOUR CODE HERE: recursive solution
+  // let result = []
+
+  // function recursion(subArray,idx){
+  //   if(idx>=subArray.length){
+  //     return 
+  //   }
+
+  //   if(Array.isArray(subArray[idx])){
+  //     recursion(subArray[idx],idx+1);
+  //   } else{
+  //     result.push(subArray[idx])
+  //     idx+1
+  //   }
+  // }
+
+  // recursion(arr,0);
+  // return result
+    let result = []
+  function flatten(subArray) {
+
+    for (let i = 0; i < subArray.length; i++) {
+        // console.log(arr[i])
+      if (Array.isArray(subArray[i])) {
+        flatten(subArray[i])
+      } else {
+        console.log(subArray[i])
+       result.push(subArray[i])
+      }
+    }
+    return
+  }
+  flatten(arr)
+  return result
 }
 
 assert(deepFlatten([1, [2, [3, [4]], 5]]), [1, 2, 3, 4, 5], "deepFlatten");
@@ -420,26 +475,57 @@ console.log("=== Section 5 done ===\n");
 // ════════════════════════════════════════════════════════════════════════════
 
 const transactions = [
-  { id: "T1", userId: "u1", amount: 250,  type: "purchase", date: "2024-01-15" },
+  { id: "T1", userId: "u1", amount: 250, type: "purchase", date: "2024-01-15" },
   { id: "T2", userId: "u2", amount: 1200, type: "purchase", date: "2024-01-20" },
-  { id: "T3", userId: "u1", amount: 75,   type: "refund",   date: "2024-02-01" },
-  { id: "T4", userId: "u3", amount: 450,  type: "purchase", date: "2024-02-10" },
-  { id: "T5", userId: "u2", amount: 300,  type: "purchase", date: "2024-02-15" },
-  { id: "T6", userId: "u1", amount: 500,  type: "purchase", date: "2024-03-01" },
+  { id: "T3", userId: "u1", amount: 75, type: "refund", date: "2024-02-01" },
+  { id: "T4", userId: "u3", amount: 450, type: "purchase", date: "2024-02-10" },
+  { id: "T5", userId: "u2", amount: 300, type: "purchase", date: "2024-02-15" },
+  { id: "T6", userId: "u1", amount: 500, type: "purchase", date: "2024-03-01" },
 ];
 
 // CHALLENGE 6.1 — Total purchase amount (excluding refunds).
 // Expected: 2700
 function totalPurchases(txns) {
   // YOUR CODE HERE
+  // let sum = 0
+  // for(let obj of txns){
+  //   if(obj.type=="purchase"){
+  //     sum+=obj.amount;
+  //   }
+  // }
+  // return sum
+  return txns.filter((txn) => txn.type === "purchase").reduce((acc, obj) => {return acc + obj.amount}, 0);
 }
+
 assert(totalPurchases(transactions), 2700, "totalPurchases");
 
 
 // CHALLENGE 6.2 — Spending per user (purchases only).
 // Returns: { u1: 750, u2: 1500, u3: 450 }
+// function spendingByUser(txns) {
+//   // YOUR CODE HERE: use reduce with an object accumulator
+//   // txns.reduce((acc,obj)=>{
+//   //   if(obj.type=="purchase" && acc[obj.userId]){
+//   //     acc[obj.userId]+=obj.amount
+//   //   } else if(obj.type=="purchase"&& (!acc[obj.userId])){
+//   //     acc[obj.userId]=obj.amount
+//   //   }
+//   //   return acc
+   
+//   // })
+  
+// }
+
 function spendingByUser(txns) {
   // YOUR CODE HERE: use reduce with an object accumulator
+  return txns.reduce((acc, curr) => {
+    if (acc[curr.userId] && curr.type !== "refund") {
+      acc[curr.userId] += curr.amount;
+    } else if (curr.type !== "refund") {
+      acc[curr.userId] = curr.amount;
+    }
+    return acc;
+  }, {})
 }
 assert(spendingByUser(transactions), { u1: 750, u2: 1500, u3: 450 }, "spendingByUser");
 
@@ -448,6 +534,23 @@ assert(spendingByUser(transactions), { u1: 750, u2: 1500, u3: 450 }, "spendingBy
 // Returns the userId with the highest total spend: "u2"
 function topSpender(txns) {
   // YOUR CODE HERE: build on spendingByUser
+  // let map = new Map();
+  // for(let i=0;i<txns.length;i++){
+  //   let obj = txns[i];
+  //   map.set(obj.userId,(map.get(obj.userId)||0)+obj.amount)
+  // }
+  // let max = 0
+  // let res = null;
+  // for(let [userId,spend] of map){
+  //   if(max<spend){
+  //     res = userId;
+  //     max = spend
+  //   }
+  // }
+  // return res
+  let cummulativeSpending = spendingByUser(txns)
+  let finalSpender = Object.entries(cummulativeSpending).sort((a, b) => b[1] - a[1]);
+  return finalSpender[0][0]
 }
 assert(topSpender(transactions), "u2", "topSpender");
 
@@ -456,9 +559,21 @@ assert(topSpender(transactions), "u2", "topSpender");
 // Returns: { "2024-01": [T1, T2], "2024-02": [T3, T4, T5], "2024-03": [T6] }
 function groupByMonth(txns) {
   // YOUR CODE HERE: use reduce, slice the date string for the key
+  return txns.reduce((acc,obj)=>{
+    let date = obj.date.slice(0,7)
+    console.log(date)
+     if (!acc[date]) {
+      acc[date] = [];
+    } 
+    acc[date].push(obj.id);
+    
+    return acc;
+  },{})
+   
 }
 
 const grouped = groupByMonth(transactions);
+console.log(grouped)
 assert(grouped["2024-01"].length, 2, "groupByMonth Jan count");
 assert(grouped["2024-02"].length, 3, "groupByMonth Feb count");
 

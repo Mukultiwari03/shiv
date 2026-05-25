@@ -65,7 +65,31 @@ const assert = (actual, expected, label) => {
 //   square(side)       → creates a square Rectangle (both sides equal)
 
 class Rectangle {
-  // YOUR CODE HERE
+  constructor(width, height){
+    this.width = width;
+    this.height = height;
+  }
+
+  area(){
+    return this.width*this.height
+  }
+  perimeter(){
+    return 2*(this.width+this.height);
+  }
+  isSquare(){
+    return this.width===this.height
+  }
+  toString(){
+    return `Rectangle(${this.width} x ${this.height})`
+  }
+
+  static fromArray([w,h]){
+    return new Rectangle(w,h)
+  }
+
+  static square(side){
+    return new Rectangle(side, side)
+  }
 }
 
 const r = new Rectangle(4, 6);
@@ -102,13 +126,35 @@ assert(r2.area(), 21, "Rectangle.fromArray area");
 
 class Temperature {
   constructor(celsius) {
-    // YOUR CODE HERE: store celsius
+    this.celsius = celsius
   }
-  get celsius() { /* YOUR CODE HERE */ }
-  set celsius(val) { /* YOUR CODE HERE: validate val >= -273.15 */ }
-  get fahrenheit() { /* YOUR CODE HERE: C * 9/5 + 32 */ }
-  set fahrenheit(val) { /* YOUR CODE HERE: convert and store as celsius */ }
-  get kelvin() { /* YOUR CODE HERE: C + 273.15 */ }
+  get celsius() { 
+    /* YOUR CODE HERE */ 
+    return this._celsius
+  }
+  set celsius(val) { 
+    /* YOUR CODE HERE: validate val >= -273.15 */
+    if(val>=-273.5){
+      // throw new Error("Temperature is below the absolute zero")
+      this._celsius = val
+    }
+  
+  }
+  get fahrenheit() { 
+    /* YOUR CODE HERE: C * 9/5 + 32 */ 
+    return (this._celsius * 9/5 ) + 32
+  
+  }
+  set fahrenheit(val) { 
+    /* YOUR CODE HERE: convert and store as celsius */
+    this._celsius = (val-32)*5/9
+
+    return this._celsius
+  }
+  get kelvin() { 
+    /* YOUR CODE HERE: C + 273.15 */ 
+    return this._celsius + 273.15
+  }
 }
 
 const temp = new Temperature(0);
@@ -156,7 +202,10 @@ console.log("=== Section 1 done ===\n");
 //   - constructor(color = "black")
 //   - method: describe() → "A black shape"
 //   - abstract-ish: area() → throw new Error("Not implemented") (no true abstract in JS)
-//
+
+//  ABSTRACT CLASS - An abstract class is a class that "CANNOT BE CREATED" directly and is meant to inherted
+// It may contain methods that must be implemented by child classes.
+
 // Child class: `Circle` extends Shape
 //   - constructor(radius, color)
 //   - override area() → Math.PI * r^2  (round to 2 decimal places)
@@ -169,6 +218,13 @@ console.log("=== Section 1 done ===\n");
 
 class Shape {
   // YOUR CODE HERE
+  constructor(color="black"){
+    this.color = color
+  }
+
+  describe(){
+    return "A black shape"
+  }
 }
 
 class Circle extends Shape {
