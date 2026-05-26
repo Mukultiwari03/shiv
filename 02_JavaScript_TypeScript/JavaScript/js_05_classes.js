@@ -223,16 +223,44 @@ class Shape {
   }
 
   describe(){
-    return "A black shape"
+    return `A ${this.color} shape`
+  }
+  area(){
+    throw new Error("Not Implemented");
   }
 }
 
 class Circle extends Shape {
-  // YOUR CODE HERE
+  constructor(radius,color){
+    super(color);
+    this.radius = radius
+  }
+  area(){
+    return Number((Math.PI * this.radius**2).toFixed(2));
+  }
+
+  describe(){
+    return `A ${this.color} circle with radius ${this.radius}`;
+  }
+
 }
 
 class Triangle extends Shape {
   // YOUR CODE HERE
+  constructor(base,height,color){
+    super(color)
+    this.base = base;
+    this.height = height;
+  }
+
+  area(){
+    return 0.5 * this.base * this.height;
+  }
+
+  describe(){
+    return `A ${this.color} triangle (base: ${this.base}, height: ${this.height})`
+  }
+
 }
 
 const c = new Circle(5, "red");
@@ -253,6 +281,14 @@ assert(t.describe(), "A blue triangle (base: 3, height: 4)", "Triangle describe"
 
 class LoggedArray extends Array {
   // YOUR CODE HERE
+  constructor(item){
+    super(item);
+    this.item = item;
+  }
+  push(item){
+    console.log(`Adding: ${this.item}`);
+   return super.push(this.item);
+  }
 }
 
 const la = new LoggedArray();
@@ -299,6 +335,7 @@ console.log("=== Section 2 done ===\n");
 
 class SecureVault {
   // YOUR CODE HERE
+  
 }
 
 const vault = new SecureVault(1234);
