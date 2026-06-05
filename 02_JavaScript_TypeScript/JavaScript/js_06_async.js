@@ -62,7 +62,7 @@ Promise.resolve().then(() => {
 });
 
 console.log("6 - end");
-
+// 1 6  3 4 5 2
 // Your predicted order: ?, ?, ?, ?, ?, ?
 // Actual order:         1, 6, 3, 4, 5, 2
 // Key insight: setTimeout(fn, 0) is STILL a macrotask — Promise callbacks run first.
@@ -74,17 +74,15 @@ console.log("\n--- Exercise 1.2 ---");
 setTimeout(() => console.log("timeout A"), 0);
 setTimeout(() => console.log("timeout B"), 0);
 
-Promise.resolve()
-  .then(() => {
-    console.log("promise A");
+Promise.resolve().then(() => {
+    console.log("promise A"); 
     setTimeout(() => console.log("timeout C (from promise)"), 0);
-  })
-  .then(() => console.log("promise B"));
+  }).then(() => console.log("promise B"));
 
 console.log("sync end");
 
 // YOUR PREDICTION (write before running):
-//
+// 1.2 sync end promise c a b 
 
 console.log("=== Section 1 done ===\n");
 

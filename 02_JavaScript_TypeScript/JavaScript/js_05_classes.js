@@ -335,6 +335,42 @@ console.log("=== Section 2 done ===\n");
 
 class SecureVault {
   // YOUR CODE HERE
+  #pin = null;
+  #locked = true;
+  #contents = [];
+  constructor(){
+   this.#pin = 1234;
+
+  }
+
+  unlock(pin){
+    if(this.#pin==pin) {
+      this.#locked = false
+    } else{
+      return  false
+    }
+    return true
+  }
+  lock(){
+    this.#locked = true
+  }
+
+  addItem(items){
+    if(this.#locked){
+      throw new Error("Vault is locked")
+    } else{
+      this.#contents.push(items)
+    }
+  }
+
+  getContents(){
+    if(this.#locked){
+      throw new Error("Vault is locked")
+    } else{
+      return [...this.#contents]
+    }
+  }
+
   
 }
 
@@ -387,10 +423,25 @@ console.log("=== Section 3 done ===\n");
 
 const Timestamped = (Base) => class extends Base {
   // YOUR CODE HERE
+  constructor(){
+    let createdAt = Date.now();
+  }
 };
 
 const Activatable = (Base) => class extends Base {
   // YOUR CODE HERE
+  isActive = false;
+  constructor(){
+    isActive = true;
+  }
+  activate(){
+    this.isActive = true;
+    return this.isActive
+  }
+
+  deactivate(){
+    this.isActivate = false;
+  }
 };
 
 class BaseModel {
@@ -426,7 +477,42 @@ console.log("=== Section 4 done ===\n");
 //   once(event, listener)    — register a listener that fires ONLY ONCE then removes itself
 
 class EventEmitter {
-  // YOUR CODE HERE
+  constructor() {
+    this.register = {};
+  }
+
+  on(event, listener) {
+    if (!this.register[event]) {
+      this.register[event] = [];
+    }
+
+    this.register[event].push(listener);
+  }
+
+  off(event, listener) {
+    if (!this.register[event]) return;
+
+    this.register[event] = this.register[event].filter(
+      (fn) => fn !== listener
+    );
+  }
+
+  emit(event, ...args) {
+    if (!this.register[event]) return;
+
+    this.register[event].forEach((listener) => {
+      listener(...args);
+    });
+  }
+
+  once(event, listener) {
+    const wrapper = (...args) => {
+      listener(...args);
+      this.off(event, wrapper);
+    };
+
+    this.on(event, wrapper);
+  }
 }
 
 const emitter = new EventEmitter();
